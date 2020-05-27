@@ -1,0 +1,83 @@
+---
+title: "clean template"
+subtitle: "the subtitle"
+author: "yourname^[University of Sheffield, name@sheffield.ac.uk]"
+date: "22. May 2020"
+documentclass: scrartcl
+#bibliography: samplebibliography.bib
+fontsize: 12pt
+output: 
+  bookdown::pdf_document2:
+    fig_caption: yes
+    df_print: kable
+    toc: false
+    #keep_tex: true
+    pandoc_args: [
+            "--biblatex"
+        ]
+    includes:
+      in_header: preamble-report.tex
+---
+
+
+\begin{abstract}
+the abstract
+\end{abstract}
+
+\tableofcontents
+
+```{r setup, include=FALSE}
+linewidth = 6            # set this as default width for figs, change it so its identical to
+                            # the linewidth of your doc (in inch)
+knitr::opts_chunk$set(
+  echo = TRUE,              # print all code
+  dev = "png",              # use png images for export
+  warning = FALSE,          # suppress warnings
+  fig.path = "./figure/" ,  # place the png images in this folder
+  fig.width = linewidth,
+  message = FALSE,          # supress messages
+  dpi = 600,                # high quality output
+  cache = T                 # speed up compilation by only running changed chunks
+  )
+# prepare you R environment
+library(tidyverse)          # the backbone
+library(ggpubr)             # plots and mulitpanel
+library(rstatix)            # tidy stat tests
+library(ggthemes)           # nicer defaults for ggplot
+library(kableExtra)         # nice table printing in latex
+
+library(reticulate)         # support for python
+# the environment we have been using
+use_condaenv(condaenv = "analysis", conda = "auto", required = FALSE)
+
+plot.font = "Palatino"      # set this as a shorthand
+
+# make a default setting for ggplot
+theme_set(
+  theme_few() +
+    theme(
+      legend.position = "bottom",
+      legend.title = NULL,
+      strip.placement = "outside",
+      strip.background = element_blank(),
+      #          plot.margin = margin(t = 0.2,r =0.1, b = 0, l = 0, "cm"),
+      text = element_text(
+        family = plot.font,
+        size = 11,
+        face = "plain"
+      ),
+      title = element_text(family = plot.font),
+      strip.text = element_text(family = plot.font)
+    )
+)
+```
+
+# Section
+The content
+```{r, eval = F}
+some code
+```
+
+
+# Bibliography
+
